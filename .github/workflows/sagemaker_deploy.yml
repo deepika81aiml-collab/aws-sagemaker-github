@@ -80,9 +80,9 @@ jobs:
           python train_and_deploy.py
           # Capture the endpoint name from the output file
           if [ -f endpoint_name.txt ]; then
-          ENDPOINT_NAME=$(cat endpoint_name.txt)
-          echo "endpoint_name=$ENDPOINT_NAME" >> $GITHUB_OUTPUT
-         fi
+            ENDPOINT_NAME=$(cat endpoint_name.txt)
+            echo "endpoint_name=$ENDPOINT_NAME" >> $GITHUB_OUTPUT
+          fi
     
       - name: Display endpoint information
         run: |
