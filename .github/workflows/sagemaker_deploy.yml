@@ -37,7 +37,7 @@ jobs:
       
       - name: Initialize Terraform
         run: |
-          terraform init -backend-config="bucket=terraform-remote-sagemaker-ankit" \
+          terraform init -backend-config="bucket="sagemaker-poc-logs-deepika" \
                          -backend-config="key=sagemaker-logs-poc/terraform.tfstate" \
                          -backend-config="region=${{ env.AWS_REGION }}"
         working-directory: ./terraform 
