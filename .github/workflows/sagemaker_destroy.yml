@@ -1,0 +1,76 @@
+name: Destroy SageMaker Infrastructure
+
+on:
+  workflow_dispatch:
+    inputs:
+      destroy_endpoints:
+        description: 'Also destroy SageMaker endpoints'
+        required: false
+        type: boolean
+        default: true
+      confirm:
+        description: 'Type "destroy" to confirm destruction'
+        required: true
+        type: string
+
+env:
+  AWS_REGION: us-east-1
+  TF_VERSION: 1.5.7
+
+jobs:
+  destroy:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.confirm == 'destroy' }}
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+    
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: ${{ env.TF_VERSION }}
+        terraform_wrapper: false
+    
+    - name: Delete SageMaker endpoints
+      if: ${{ github.event.inputs.destroy_endpoints == 'true' }}
+      run: |
+        echo "Listing and deleting SageMaker endpoints..."
+        ENDPOINTS=$(aws sagemaker list-endpoints --name-contains "logs-error-endpoint" --query "Endpoints[*].EndpointName" --output text)
+        
+        if [ -n "$ENDPOINTS" ]; then
+          for endpoint in $ENDPOINTS; do
+            echo "Deleting endpoint: $endpoint"
+            aws sagemaker delete-endpoint --endpoint-name $endpoint || true
+          done
+          echo "Waiting for endpoints to be deleted..."
+          sleep 30
+        else
+          echo "No endpoints found to delete"
+        fi
+    
+    - name: Initialize Terraform
+      run: |
+        terraform init -backend-config="bucket=sagemaker-poc-logs-deepika" \
+                       -backend-config="key=sagemaker-logs-poc/terraform.tfstate" \
+                       -backend-config="region=${{ env.AWS_REGION }}"
+      working-directory: ./terraform
+    
+    - name: Destroy Terraform resources
+      run: terraform destroy -auto-approve
+      working-directory: ./terraform
+    
+    - name: Summary
+      run: |
+        echo "### Infrastructure Destroyed! 🗑️" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "All SageMaker infrastructure has been destroyed." >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "You can now run the deployment workflow again for testing." >> $GITHUB_STEP_SUMMARY
