@@ -37,10 +37,9 @@ jobs:
       
       - name: Initialize Terraform
         run: |
-          terraform init \
-            -backend-config=sagemaker-poc-logs-deeps \
-            -backend-config=key=sagemaker-logs-poc/terraform.tfstate \
-            -backend-config=region=${{ env.AWS_REGION }}
+          terraform init -backend-config="bucket=sagemaker-poc-logs-deeps" \
+                         -backend-config="key=sagemaker-logs-poc/terraform.tfstate" \
+                         -backend-config="region=${{ env.AWS_REGION }}"
         working-directory: ./terraform 
         
       - name: Plan Terraform changes
