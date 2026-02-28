@@ -239,4 +239,4 @@ Privacy violation risk,Mask sensitive data
 Data retention exceeded,Archive old data
 Cleanup failed,Retry cleanup
 Garbage collection error,Restart system
-Unknown error occurred,Contact support
+Unknown error occurred, Contact support

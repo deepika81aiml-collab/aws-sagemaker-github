@@ -110,17 +110,36 @@ def main():
     
     # Create the training script
     create_training_script()
-    
+
     # Create the SKLearn Estimator
+    # Get execution role from environment variable or use auto-detection
+    execution_role = os.environ.get('SAGEMAKER_EXECUTION_ROLE', None)
+    if not execution_role:
+        try:
+            execution_role = sagemaker.get_execution_role()
+        except ValueError:
+            raise ValueError("SAGEMAKER_EXECUTION_ROLE environment variable not set and current identity is not a role")
+    
     sklearn_estimator = SKLearn(
         entry_point="train_script.py",
         framework_version="1.0-1",
         instance_type="ml.m5.xlarge",
         instance_count=1,
-        role=sagemaker.get_execution_role(),
+        role=execution_role,
         base_job_name="logs-error-model",
         sagemaker_session=session
     )
+    
+    # # Create the SKLearn Estimator
+    # sklearn_estimator = SKLearn(
+    #     entry_point="train_script.py",
+    #     framework_version="1.0-1",
+    #     instance_type="ml.m5.xlarge",
+    #     instance_count=1,
+    #     role=sagemaker.get_execution_role(),
+    #     base_job_name="logs-error-model",
+    #     sagemaker_session=session
+    # )
     
     # Fit using S3 path instead of local path
     sklearn_estimator.fit({'train': s3_train_path})
