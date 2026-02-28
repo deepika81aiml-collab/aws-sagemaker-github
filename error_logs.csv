@@ -357,7 +357,7 @@ SyntaxError: f-string: empty expression not allowed,"Ensure your [f-string](http
 "AttributeError: 'NoneType' object has no attribute 'x'","Check if a function unexpectedly returned None instead of the expected object."
 "IndexError: list index out of range","Check if the index being accessed is within the valid range of the sequence (0 to length-1)."
 "ImportError: No module named 'x'","Install the library using 'pip install x' and verify the module name's spelling."
-SyntaxError: invalid syntax,Check for typos, missing colons, or incorrect indentation
+SyntaxError: invalid syntax,Check for typos :missing colons or incorrect indentation
 IndentationError: unexpected indent,Ensure consistent use of spaces/tabs for indentation
 NameError: name 'x' is not defined,Declare the variable before using it or check spelling
 TypeError: unsupported operand type(s),Verify data types and use appropriate conversions
