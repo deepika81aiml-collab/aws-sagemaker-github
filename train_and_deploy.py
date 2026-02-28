@@ -148,6 +148,22 @@ def main():
     
     # Fit using S3 path instead of local path
     sklearn_estimator.fit({'train': s3_train_path})
+
+    # Delete existing endpoint and endpoint config if they exist
+    sm_client = boto3.client('sagemaker')
+    endpoint_name = "logs-error-endpoint-new"
+    
+    try:
+        sm_client.delete_endpoint(EndpointName=endpoint_name)
+        print(f"Deleted existing endpoint: {endpoint_name}")
+    except sm_client.exceptions.ValidationException:
+        pass
+    
+    try:
+        sm_client.delete_endpoint_config(EndpointConfigName=endpoint_name)
+        print(f"Deleted existing endpoint config: {endpoint_name}")
+    except sm_client.exceptions.ValidationException:
+        pass
     
     # Deploy model with serializer configuration
     predictor = sklearn_estimator.deploy(
