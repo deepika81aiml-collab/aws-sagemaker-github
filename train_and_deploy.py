@@ -93,7 +93,7 @@ if __name__=="__main__":
 
 def main():
     session = sagemaker.Session()
-    bucket_name = "sagemaker-basic-poc"
+    bucket_name = os.environ.get('S3_BUCKET', 'sagemaker-basic-poc')
     data_key = "data/error_logs.csv"
     
     # Download data to local /tmp, parse

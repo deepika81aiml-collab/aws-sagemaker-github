@@ -3,7 +3,7 @@ SyntaxError,Check for missing colons (:) or mismatched parentheses and quotes.
 IndentationError,Ensure consistent use of 4 spaces per level; do not mix tabs and spaces.
 NameError,Verify the variable name is spelled correctly and was defined before being used.
 TypeError,Ensure you are not mixing incompatible types (e.g. adding a string to an integer).
-ValueError,Validate that he data content is appropriate for the function (e.g. non-numeric strings in int()).
+ValueError,Validate that the data content is appropriate for the function (e.g. non-numeric strings in int()).
 IndexError,Check that the list index exists; remember that Python indexing starts at 0.
 KeyError,Verify the key exists in the dictionary or use the  .get() method for a safe default.
 AttributeError,Confirm the object actually has the method or attribute you are trying to call.
