@@ -1241,7 +1241,7 @@ SQLSTATE 2BP01: Dependent objects exist,"Use 'DROP ... CASCADE' to remove the ob
 SQLSTATE 42883: Undefined function,"Check function name and ensure argument types match the definition."
 SQLSTATE 22018: Invalid character for cast,"Verify that the source string can be logically converted to the target type."
 SQLSTATE 0A000: Feature not supported,"Consult documentation for alternative syntax supported by your DB engine."
-SQLSTATE 42P10: Invalid column reference,"Ensure column aliases are not used in WHERE; use a CTE or subquery."
+SQLSTATE 42P10: Invalid column creference,"Ensure column aliases are not used in WHERE; use a CTE or subquery."
 SQLSTATE 22P02: Invalid text representation,"Clean input data to remove illegal characters for the target data type."
 SQLSTATE 53100: Disk full,"Free up space on the database drive or move logs to another partition."
 SQLSTATE 25P02: In failed sql transaction,"Roll back the current transaction before attempting new commands."
