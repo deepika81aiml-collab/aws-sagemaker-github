@@ -581,7 +581,7 @@ SyntaxError: f-string: empty expression not allowed,"Ensure your [f-string](http
 "AttributeError: 'NoneType' object has no attribute 'x'","Check if a function unexpectedly returned None instead of the expected object."
 "IndexError: list index out of range","Check if the index being accessed is within the valid range of the sequence (0 to length-1)."
 "ImportError: No module named 'x'","Install the library using 'pip install x' and verify the module name's spelling."
-SyntaxError: invalid syntax,Check for typos, missing colons, or incorrect indentation
+SyntaxError: invalid syntax,Check for typos missing colons or incorrect indentation
 IndentationError: unexpected indent,Ensure consistent use of spaces/tabs for indentation
 NameError: name 'x' is not defined,Declare the variable before using it or check spelling
 TypeError: unsupported operand type(s),Verify data types and use appropriate conversions
@@ -593,7 +593,7 @@ ImportError: No module named 'xyz',Install the missing module or check import pa
 ModuleNotFoundError: No module named 'xyz',Install the module via pip or verify environment
 FileNotFoundError: [Errno 2] No such file,Confirm file path and existence before opening
 ZeroDivisionError: division by zero,Add checks to prevent division by zero
-"SyntaxError: invalid syntax","Check for missing colons, unclosed brackets, or keyword typos."
+"SyntaxError: invalid syntax","Check for missing colons, unclosed brackets or keyword typos."
 "IndentationError: expected an indented block","Ensure consistent 4-space indentation after if/for/def statements."
 "NameError: name 'x' is not defined","Verify variable spelling and ensure it was assigned before use."
 "TypeError: can only concatenate str (not 'int') to str","Wrap the variable in str() or use an f-string to format."
@@ -614,9 +614,9 @@ ZeroDivisionError: division by zero,Add checks to prevent division by zero
 "OverflowError: numerical result out of range","Handle extremely large numbers that exceed the capacity of the current numeric type."
 "AssertionError","Check the logic of your assert statements to ensure conditions are being met."
 "MemoryError","Optimize memory usage by using generators or deleting large objects no longer in use."
-"UnicodeDecodeError: 'utf-8' codec can't decode byte","Specify the correct encoding (e.g., 'latin-1') when opening files or reading data."
+"UnicodeDecodeError: 'utf-8' codec can't decode byte","Specify the correct encoding (e.g.'latin-1') when opening files or reading data."
 "StopIteration","Ensure your loop or next() call is not attempting to pull items from an exhausted iterator."
-SyntaxError: invalid syntax,"Check for missing colons (:), unclosed brackets ((), [], {}), or typos in keywords."
+SyntaxError: invalid syntax,"Check for missing colons (:) unclosed brackets or typos in keywords."
 IndentationError: expected an indented block,"Ensure all code within loops, functions, and classes is consistently indented with 4 spaces."
 NameError: name 'x' is not defined,"Verify the variable name is spelled correctly and was assigned a value before use."
 TypeError: can only concatenate str (not 'int') to str,"Convert the non-string type to a string using str() or use f-strings for formatting."
@@ -1246,7 +1246,7 @@ SQLSTATE 22P02: Invalid text representation,"Clean input data to remove illegal 
 SQLSTATE 53100: Disk full,"Free up space on the database drive or move logs to another partition."
 SQLSTATE 25P02: In failed sql transaction,"Roll back the current transaction before attempting new commands."
 SQLSTATE 42P11: Invalid cursor name,"Ensure the cursor is declared and opened before attempting to fetch."
-SQLSTATE 42804: Datatype mismatch,"Align data types in your UNION, JOIN, or CASE statement branches."
+SQLSTATE 42804: Datatype mismatch,"Align data types in your UNION JOIN or CASE statement branches."
 SQLSTATE 42P13: Invalid parameter definition,"Check the syntax of your stored procedure or function parameters."
 SQLSTATE 22023: Invalid parameter value,"Verify values passed to built-in functions are within valid ranges."
 SQLSTATE 42P16: Invalid table definition,"Ensure the table has at least one column and a valid name."
@@ -1269,7 +1269,7 @@ SQLSTATE 42712: Duplicate alias,"Provide unique aliases for tables in a JOIN to 
 SQLSTATE 22027: Trim error,"Ensure the character to be trimmed is exactly one character long."
 SQLSTATE 42809: Wrong object type,"Verify you are not trying to 'DROP TABLE' on a View or vice versa."
 SQLSTATE 22030: Duplicate array element,"Remove duplicate entries if the array requires unique elements."
-SQLSTATE 42P02: Undefined parameter,"Check that all placeholders ($1, $2, ?) have corresponding values."
+SQLSTATE 42P02: Undefined parameter,"Check that all placeholders  have corresponding values."
 SQLSTATE 22031: No element in array,"Ensure the array index being accessed is within the array bounds."
 SQLSTATE 42830: Invalid foreign key,"Verify the parent table has a matching PRIMARY or UNIQUE key."
 SQLSTATE 22032: Invalid JSON escape,"Check JSON string escape logic for invalid sequences."

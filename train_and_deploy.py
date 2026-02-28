@@ -16,12 +16,17 @@ def prepare_data(bucket_name,key):
         key (str): The key of the S3 object where the data is stored.
         Download the data from s3,load into pandas dataframe, and return request and actions dataframes."""
 
-    s3=boto3.client('s3')
+     s3=boto3.client('s3')
     local_path='/tmp/error_log.csv'
     s3.download_file(bucket_name,key,local_path)
-    df=pd.read_csv(local_path)
-    request_df=df['Error']
-    actions_df=df['ActionRecommended']
+    df=pd.read_csv(local_path, on_bad_lines='skip', engine='python')
+    
+    # Handle different column names
+    error_col = 'Error' if 'Error' in df.columns else df.columns[0]
+    action_col = 'ActionRecommended' if 'ActionRecommended' in df.columns else df.columns[1]
+    
+    request_df=df[error_col]
+    actions_df=df[action_col]
     return request_df,actions_df
 
 #Create training script
