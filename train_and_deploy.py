@@ -151,19 +151,21 @@ def main():
 
     # Delete existing endpoint and endpoint config if they exist
     sm_client = boto3.client('sagemaker')
-    endpoint_name = "logs-error-endpoint-new"
+    endpoint_name = "logs-error-endpoint"
     
     try:
         sm_client.delete_endpoint(EndpointName=endpoint_name)
         print(f"Deleted existing endpoint: {endpoint_name}")
-    except sm_client.exceptions.ValidationException:
-        pass
+    except Exception as e:
+        if "Could not find endpoint" not in str(e):
+            print(f"Error deleting endpoint: {e}")
     
     try:
         sm_client.delete_endpoint_config(EndpointConfigName=endpoint_name)
         print(f"Deleted existing endpoint config: {endpoint_name}")
-    except sm_client.exceptions.ValidationException:
-        pass
+    except Exception as e:
+        if "Could not find endpoint configuration" not in str(e):
+            print(f"Error deleting endpoint config: {e}")
     
     # Deploy model with serializer configuration
     predictor = sklearn_estimator.deploy(
